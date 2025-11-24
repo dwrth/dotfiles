@@ -14,9 +14,12 @@ if initialize_session "vystem-platform"; then
   run_cmd "cd backend/"
   run_cmd "npm run dev"
 
-  select_pane 0
   split_v 50
+  select_pane 0
+  split_h 50
+  run_cmd "ngrok http --url=ringtail-stirring-gladly.ngrok-free.app 8080"
 
+  select_pane 2
   run_cmd "cd frontend/"
   run_cmd "yarn dev"
 
