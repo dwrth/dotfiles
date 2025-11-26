@@ -9,8 +9,8 @@ set -h
 
 # nvm Setup
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
 # tmuxifier setup
 export PATH="$HOME/.tmuxifier/bin:$PATH"
@@ -18,15 +18,13 @@ eval "$(tmuxifier init -)"
 
 # Aliases
 alias n="nvim"
+alias learnc="cd $HOME/Developer/learning/c/"
 alias bye="exit"
 alias stuzubi="tmuxifier s stuzubi"
 alias vystem="tmuxifier s vystem"
 alias python='python3'
 alias wake-vystem="kubectl get deployments -o name | grep -v -E '(master|debug-redis|influxdb|prom-adapter|develop-thumbnail)' | xargs -I {} kubectl scale {} --replicas=1"
 alias kill-vystem="kubectl get deployments -o name | grep -v -E '(master|debug-redis|influxdb|prom-adapter|develop-thumbnail)' | xargs -I {} kubectl scale {} --replicas=0"
-
-
-
 
 # git flow like helper functions
 feature() {
