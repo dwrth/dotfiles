@@ -1,9 +1,11 @@
-# Set a custom session root path. Default is `$HOME`.
-# Must be called before `initialize_session`.
-session_root "~/Developer/work/vystem-platform/"
+session_root "$HOME/Developer/work/vystem-platform/"
+sessions=$(tmux list-sessions || echo)
 
-# Create session with specified name if it does not already exist. If no
-# argument is given, session name will be based on layout file name.
+if [[ "$sessions" == *"stuzubi"* ]]; then
+  echo "shutting down stuzubi before starting stuzubi"
+  valkey-cli shutdown
+  tmux kill-session -t stuzubi
+fi
 if initialize_session "vystem-platform"; then
 
   new_window "nvim"
@@ -23,12 +25,11 @@ if initialize_session "vystem-platform"; then
   run_cmd "cd frontend/"
   run_cmd "yarn dev"
 
-  new_window "redis"
-  run_cmd "redis-server"
+  new_window "valkey"
+  run_cmd "valkey-server"
 
   select_window "servers"
 
 fi
 
-# Finalize session creation and switch/attach to it.
 finalize_and_go_to_session

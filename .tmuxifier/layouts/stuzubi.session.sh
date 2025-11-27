@@ -1,9 +1,11 @@
-# Set a custom session root path. Default is `$HOME`.
-# Must be called before `initialize_session`.
-session_root "~/Developer/work/stuzubi-b2b"
+session_root "$HOME/Developer/work/stuzubi-b2b"
+sessions=$(tmux list-sessions || echo)
 
-# Create session with specified name if it does not already exist. If no
-# argument is given, session name will be based on layout file name.
+if [[ "$sessions" == *"vystem"* ]]; then
+  echo "shutting down vystem before starting stuzubi"
+  valkey-cli shutdown
+  tmux kill-session -t vystem
+fi
 if initialize_session "stuzubi"; then
 
   new_window "nvim"
