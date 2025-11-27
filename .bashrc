@@ -26,6 +26,12 @@ alias python='python3'
 alias wake-vystem="kubectl get deployments -o name | grep -v -E '(master|debug-redis|influxdb|prom-adapter|develop-thumbnail)' | xargs -I {} kubectl scale {} --replicas=1"
 alias kill-vystem="kubectl get deployments -o name | grep -v -E '(master|debug-redis|influxdb|prom-adapter|develop-thumbnail)' | xargs -I {} kubectl scale {} --replicas=0"
 
+# kill all tmux sessions and running valkey servers
+kill-tmux() {
+  valkey-cli shutdown || echo
+  tmux kill-server
+}
+
 # git flow like helper functions
 feature() {
   git checkout -b "feature-$1"
